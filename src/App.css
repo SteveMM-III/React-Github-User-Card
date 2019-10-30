@@ -136,6 +136,7 @@ body {
 }
 
 .card p {
+  text-align: left;
   font-size: 1.4rem;
   margin-bottom: 3px;
 }
