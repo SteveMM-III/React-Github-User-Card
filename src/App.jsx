@@ -8,14 +8,13 @@ import './App.css';
 
 class App extends React.Component {
   state = {
-    user: {},
-    followers: []
+    users: []
   }
 
   componentDidMount = () => {
     axios
       .get( 'https://api.github.com/users/SteveMM-III' )
-      .then( res => this.setState( { user: res.data } ) )
+      .then( res => this.setState( { users: [ ...this.state.users, res.data ] } ) )
       .catch( err => console.log( `Error: ${ err }` ) );
       
     axios
@@ -23,7 +22,7 @@ class App extends React.Component {
       .then( res => 
         res.data.forEach( e => axios
           .get( e.url )
-          .then( res => this.setState( { followers: [ ...this.state.followers, res.data ] } ) )
+          .then( res => this.setState( { users: [ ...this.state.users, res.data ] } ) )
           .catch( err => console.log( `Error: ${ err }` ) ) )
       )
       .catch( err => console.log( `Error: ${ err }` ) );
@@ -32,9 +31,8 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Card user={ this.state.user } />
         {
-          this.state.followers.map( user => (
+          this.state.users.map( user => (
             <Card key={ uuid.v4() } user={ user } />
           ) )
         }
