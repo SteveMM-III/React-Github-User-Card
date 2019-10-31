@@ -30,12 +30,14 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
-        {
-          this.state.users.map( user => (
-            <Card key={ uuid.v4() } user={ user } />
-          ) )
-        }
+      <div className="App container">
+        <div className="cards">
+          {
+            this.state.users.map( user => (
+              <Card key={ uuid.v4() } user={ user } />
+            ) )
+          }
+        </div>
       </div>
     );
   }
